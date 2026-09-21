@@ -1,5 +1,7 @@
 # iceman
 
+<img src="assets/mascot.png" alt="iceman mascot" width="200" />
+
 Get a cross-platform Nix dev shell for a project in one command, and add packages to it later without editing Nix.
 
 `iceman init` writes a `flake.nix` (built on `flake-utils`, so it works on Linux and macOS, x86_64 and aarch64) plus a `.envrc` for direnv. `iceman add` finds the nearest `flake.nix` and appends packages to its `buildInputs`. `iceman search` fuzzy-searches nixpkgs, in a terminal picker or as plain text.
