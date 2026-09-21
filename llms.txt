@@ -1,0 +1,30 @@
+# iceman
+
+> CLI for bootstrapping and editing Nix flake dev environments. `iceman init` scaffolds a cross-platform `flake.nix` (via flake-utils) plus a `.envrc`; `iceman add` appends nixpkgs packages to an existing flake without hand-editing Nix; `iceman search` fuzzy-searches nixpkgs with a plain/JSON mode and an interactive terminal picker. Zero external Go dependencies except `golang.org/x/term`.
+
+Runs with no install via `nix run github:wesbragagt/iceman -- init myproject`. `init` and `add` are plain text manipulation and need no Nix installed; `search` and the `-i` picker shell out to `nix search nixpkgs` and require `nix` on PATH.
+
+## Docs
+
+- [README](README.md): install, usage synopsis for `init`/`add`/`search`, interactive picker keys, and a real generated `flake.nix` example.
+- [LICENSE](LICENSE): MIT.
+
+## Source
+
+- [main.go](main.go): entry point, calls `cmd.Execute()`.
+- [cmd/root.go](cmd/root.go): subcommand dispatch and `iceman help` usage text.
+- [cmd/init.go](cmd/init.go): `iceman init` — writes `flake.nix`/`.envrc`, direnv allow, `-i` picker wiring.
+- [cmd/add.go](cmd/add.go): `iceman add` — finds the nearest `flake.nix` upward from cwd, `-i` picker wiring.
+- [cmd/search.go](cmd/search.go): `iceman search` — non-interactive ranked output and TTY fallback into the picker.
+- [internal/flake/template.go](internal/flake/template.go): renders new `flake.nix` content, escapes descriptions for valid Nix.
+- [internal/flake/editor.go](internal/flake/editor.go): regex-based editor that inserts packages into an existing `buildInputs` list.
+- [internal/nixsearch/nixsearch.go](internal/nixsearch/nixsearch.go): fetches and caches the nixpkgs catalog via `nix search nixpkgs --json`.
+- [internal/nixsearch/fuzzy.go](internal/nixsearch/fuzzy.go): fzf-style subsequence fuzzy matcher and ranking.
+- [internal/picker/state.go](internal/picker/state.go): pure, testable picker state machine (filter/cursor/selection).
+- [internal/picker/picker.go](internal/picker/picker.go): raw-mode terminal rendering and input loop built on the state machine.
+- [flake.nix](flake.nix): this repo's own flake — `nix build`/`nix run`/`nix develop`.
+
+## Optional
+
+- [test/integration_test.go](test/integration_test.go): builds the real binary and drives `init`/`add` end-to-end, snapshot-tested against `test/testdata/`.
+- [test/nix_validation_test.go](test/nix_validation_test.go): parses generated/edited `flake.nix` files with `nix-instantiate --parse` to confirm they're valid Nix, not just matching text.

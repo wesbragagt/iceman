@@ -1,0 +1,52 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Prior Search
+      options:
+        - label: I have already searched this [project's issues](https://github.com/wesbragagt/iceman/issues) to determine if a bug report has already been made.
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Please provide the exact command(s) you ran (e.g. `iceman init -p go,git myproject`) and any relevant `flake.nix` content.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: iceman version or commit
+      description: How you installed it (`nix run`, `nix profile install`, `go build`) and the version/commit.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: OS/arch
+      placeholder: e.g. macOS aarch64, Linux x86_64
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell

@@ -1,0 +1,31 @@
+name: Feature Request
+description: File a feature request
+title: "[feature]: "
+labels: ["feature", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Prior Search
+      options:
+        - label: I have already searched this [project's issues](https://github.com/wesbragagt/iceman/issues) to determine if a similar request has already been made.
+          required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: What new functionality would you like to see?
+      placeholder: Tell us what you want!
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: How would you use this new functionality?
+      description: This helps us better understand the best way to develop the functionality to meet your needs.
+      placeholder: Tell us your use case!
+    validations:
+      required: true

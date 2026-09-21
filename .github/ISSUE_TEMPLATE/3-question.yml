@@ -1,0 +1,33 @@
+name: Question
+description: Ask a question
+title: "[question]: "
+labels: ["question", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to ask this question!
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Prior Search
+      options:
+        - label: I have already searched this [project's issues](https://github.com/wesbragagt/iceman/issues) to determine if a similar question has already been asked.
+          required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: What is your question?
+    validations:
+      required: true
+  - type: dropdown
+    id: components
+    attributes:
+      label: What part of iceman does this relate to?
+      multiple: true
+      options:
+        - init
+        - add
+        - search
+        - skill
+        - other
